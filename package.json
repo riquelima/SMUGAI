@@ -1,0 +1,19 @@
+{
+  "name": "smug-ai",
+  "version": "1.0.0",
+  "description": "SMUG AI — Assistente Invisível de IA em Tempo Real para Entrevistas e Reuniões",
+  "private": true,
+  "scripts": {
+    "dev": "python3 -m http.server 3001",
+    "start": "python3 -m http.server 3001"
+  },
+  "keywords": [
+    "ai",
+    "real-time-assistant",
+    "meeting-copilot",
+    "interview-ai",
+    "macos"
+  ],
+  "author": "SMUG AI",
+  "license": "MIT"
+}

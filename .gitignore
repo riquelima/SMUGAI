@@ -1,0 +1,5 @@
+.DS_Store
+.original_smog_backup/
+*.log
+node_modules/
+.env*

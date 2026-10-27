@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMUG | Assistente Invisível de IA em Tempo Real para Entrevistas e Reuniões</title>
+  <meta name="description" content="O SMUG é um copiloto invisível em tempo real para entrevistas e reuniões, com respostas instantâneas, transcrição inteligente e sobreposição indetectável." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            handlee: ['Handlee', 'cursive'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              purple: '#8d51ff',
+              dark: '#111111',
+              lightGray: '#f5f5f5',
+              subtle: '#707070'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Keyframes extraídos do Smog e adaptados perfeitamente para o SMUG */
+    @keyframes smug-u-motion {
+      0% { transform: translate(-4.5px, -3.5px); }
+      50% { transform: translate(0px, 3.8px); }
+      100% { transform: translate(4.5px, -3.5px); }
+    }
+    .smug-u-dot {
+      animation: smug-u-motion 950ms ease-in-out infinite alternate;
+    }
+
+    @keyframes hero-stop-spotlight {
+      0%, 100% { opacity: 0; }
+      20%, 80% { opacity: 1; }
+    }
+    @keyframes hero-stop-sketch-draw {
+      0% { stroke-dashoffset: 1; opacity: 0; }
+      30% { opacity: 1; }
+      100% { stroke-dashoffset: 0; opacity: 1; }
+    }
+    @keyframes hero-stop-cursor {
+      0% { transform: translate(50px, 45px) scale(0.9); opacity: 0; }
+      25% { transform: translate(0px, 0px) scale(1); opacity: 1; }
+      55% { transform: translate(-2px, -2px) scale(0.92); opacity: 1; }
+      75% { transform: translate(0px, 0px) scale(1); opacity: 1; }
+      100% { transform: translate(25px, 25px) scale(1); opacity: 0; }
+    }
+    .animate-spotlight {
+      animation: hero-stop-spotlight 1200ms ease-in-out forwards;
+    }
+    .animate-sketch {
+      stroke-dasharray: 1;
+      animation: hero-stop-sketch-draw 450ms ease-out 250ms both;
+    }
+    .animate-cursor {
+      animation: hero-stop-cursor 1200ms ease-in-out forwards;
+    }
+
+    /* Laser de escaneamento de tela */
+    @keyframes vision-scan-sweep {
+      0% { transform: translateY(0); opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translateY(220px); opacity: 0; }
+    }
+    .animate-vision-scan-sweep {
+      animation: vision-scan-sweep 2.8s ease-in-out infinite;
+    }
+
+    /* Pulso do botão WhatsApp */
+    @keyframes wa-pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+    .wa-floating-btn {
+      animation: wa-pulse 2.2s infinite;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-[#fafafa] text-[#111111] font-sans antialiased selection:bg-violet-100 selection:text-violet-900 min-h-screen relative overflow-x-hidden">
+
+  <!-- NAVBAR MINIMALISTA MODERNA (Sem menus, apenas logotipo SMUG e CTA WhatsApp) -->
+  <header class="fixed top-0 left-0 right-0 z-50 w-full bg-white/70 backdrop-blur-xl border-b border-black/5 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 h-16 sm:h-20 flex items-center justify-between">
+      
+      <!-- LOGO SMUG (SM + U Animado + G) -->
+      <a href="#" class="flex items-center gap-0.5 group select-none" aria-label="SMUG Home">
+        <span class="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight -mr-[6px] text-black transition-colors">sm</span>
+        <svg width="34" height="34" viewBox="0 0 34 34" class="inline-block overflow-visible" aria-label="SMUG logo" role="img">
+          <!-- Traçado do U -->
+          <path d="M 10 8 L 10 18.5 C 10 26.2 24 26.2 24 18.5 L 24 8" 
+                fill="none" 
+                stroke="black" 
+                stroke-width="2.6" 
+                stroke-linecap="round" 
+                stroke-linejoin="round" />
+          <!-- Círculo interno que desliza suavemente dentro da curva do U -->
+          <g class="smug-u-dot">
+            <circle cx="17" cy="18" r="3.2" fill="black" />
+          </g>
+        </svg>
+        <span class="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight -ml-[4px] text-black transition-colors">g</span>
+      </a>
+
+      <!-- Badge Informativo Discreto -->
+      <div class="hidden md:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/5 border border-black/5 text-xs font-medium text-black/70">
+        <span class="size-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>Assistente Invisível para Chamadas & Entrevistas</span>
+      </div>
+
+      <!-- Botão Superior Direito para Contato Direto -->
+      <div class="flex items-center gap-3">
+        <a href="https://wa.me/5571999088651?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20o%20SMUG." 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-black text-white hover:bg-black/85 transition-all shadow-sm hover:scale-[1.02] active:scale-[0.98]">
+          <svg class="size-4 fill-white" viewBox="0 0 24 24">
+            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/>
+          </svg>
+          <span>Falar Comigo</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative pt-28 sm:pt-40 lg:pt-48 pb-16 sm:pb-24 px-4 sm:px-8 lg:px-12 flex flex-col items-center overflow-hidden">
+    
+    <!-- Grid sutil de fundo com máscara radial idêntica ao original -->
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10" 
+         style="background-image:linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px); background-size:56px 56px; mask-image:radial-gradient(ellipse 70% 60% at 50% 35%, black 0%, transparent 75%); -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 35%, black 0%, transparent 75%);">
+    </div>
+
+    <!-- Título Principal & Subtítulo -->
+    <div class="w-full max-w-5xl mx-auto flex flex-col justify-center items-center text-center gap-6 sm:gap-8 mb-12 sm:mb-16">
+      
+      <h1 class="w-full text-center text-5xl sm:text-6xl lg:text-8xl xl:text-9xl font-semibold tracking-tight leading-[0.98] sm:leading-[0.95]">
+        Veja as respostas.
+        <span class="font-handlee -rotate-2 inline-block font-bold text-violet-600">Ao vivo</span>.
+        Indetectável.
+      </h1>
+
+      <p class="w-full text-center text-base sm:text-xl font-medium px-2 sm:px-6 leading-relaxed max-w-3xl text-balance text-black/75">
+        O <strong class="text-black font-semibold">SMUG</strong> escuta sua entrevista ou reunião e mostra exatamente o que falar em uma 
+        <span class="text-violet-600 font-semibold underline decoration-violet-300 decoration-wavy decoration-1 underline-offset-4">sobreposição indetectável</span>, 
+        mesmo enquanto você compartilha a tela.
+      </p>
+
+      <!-- Botões de Ação do Hero -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 w-full max-w-lg mx-auto">
+        
+        <a href="https://wa.me/5571999088651?text=Ol%C3%A1%21%20Quero%20uma%20apresenta%C3%A7%C3%A3o%20do%20SMUG." 
+           target="_blank" 
+           rel="noopener noreferrer"
+           class="w-full sm:w-auto inline-flex items-center justify-center gap-3 rounded-xl text-base font-semibold bg-black text-white hover:bg-black/85 h-12 px-7 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0">
+          <svg class="size-5 fill-emerald-400" viewBox="0 0 24 24">
+            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/>
+          </svg>
+          <span>Solicitar Demonstração</span>
+        </a>
+
+        <!-- Disponibilidade Exclusiva macOS -->
+        <div class="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-black/10 bg-white/80 backdrop-blur text-xs font-medium text-black/70">
+          <svg class="size-4 text-black" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.78 1.05-1.87.93-2.97-1 .04-2.19.67-2.88 1.48-.61.71-1.14 1.83-1 2.93 1.11.09 2.25-.59 2.95-1.44z"/>
+          </svg>
+          <span>Exclusivo para macOS</span>
+          <span class="text-black/30">|</span>
+          <span class="text-emerald-600 font-semibold">100% Invisível</span>
+        </div>
+
+      </div>
+
+      <!-- Anotação manual divertida com seta (Handlee) -->
+      <div class="flex items-center justify-center gap-2 text-violet-600 font-handlee text-sm sm:text-base -mt-1">
+        <span>⤹</span>
+        <span>Invisível em compartilhamentos de tela no Zoom, Meet e Teams</span>
+      </div>
+
+    </div>
+
+    <!-- O MÓDULO INTERATIVO SMUG (Demonstração Funcional ao Vivo) -->
+    <div class="w-full max-w-6xl mx-auto">
+      
+      <div id="hero-sim-container" class="relative mx-auto w-full h-[540px] sm:h-[600px] lg:h-[520px] overflow-hidden rounded-2xl bg-white text-black shadow-2xl border border-black/10 flex flex-col select-none">
+
+        <!-- Overlay de Spotlight, Círculo Desenhado e Cursor -->
+        <div id="hero-spotlight-overlay" class="pointer-events-none absolute inset-0 z-30 hidden">
+          <div id="hero-spotlight-bg" class="absolute inset-0 animate-spotlight"></div>
+          <svg id="hero-spotlight-svg" class="absolute" viewBox="0 0 100 40" preserveAspectRatio="none" fill="none" aria-hidden="true">
+            <path d="M8 20 C8 8 30 3 50 3 C70 3 92 8 92 20 C92 32 70 37 50 37 C30 37 8 32 8 20 C8 14 9 12 11 11" 
+                  stroke="#8d51ff" stroke-width="3" stroke-linecap="round" pathLength="1" class="animate-sketch" />
+          </svg>
+          <div id="hero-spotlight-cursor" class="absolute animate-cursor">
+            <svg class="w-5 h-5 fill-black text-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.35)]" viewBox="0 0 24 24">
+              <path d="M3 3l7 18 3-7 7-3L3 3z"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Barra Superior da Janela: Status de Escuta / Pronto -->
+        <div class="flex w-full shrink-0 items-center justify-between px-4 pt-3 pb-2 border-b border-black/5 bg-white">
+          <div class="flex items-center gap-2">
+            <span id="hero-status-dot" class="size-2 shrink-0 rounded-full bg-gray-400 transition-colors duration-300"></span>
+            <span id="hero-status-label" class="text-[11px] font-semibold text-[#9a9a9a]">Pronto</span>
+          </div>
+          <div class="flex items-center gap-3 text-[11px] text-gray-500">
+            <div class="flex items-center gap-1">
+              <span class="size-1.5 rounded-full bg-emerald-500"></span>
+              <span class="font-medium text-black/70">Sobreposição Invisível</span>
+            </div>
+            <a href="animacao.html" target="_blank" class="hidden sm:inline-flex items-center gap-1 text-violet-600 hover:text-violet-800 font-medium">
+              <span>Abrir standalone</span> ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Corpo Principal: Sidebar + Conteúdo -->
+        <div class="flex min-h-0 flex-1 overflow-hidden">
+
+          <!-- Sidebar de Ícones (Listen, Requests, Transcript, Context, History, Translate) -->
+          <aside class="w-12 shrink-0 flex flex-col items-center justify-start gap-1.5 border-r border-black/5 px-1.5 py-3 bg-[#fafafa]">
+            <!-- Escuta / Ao Vivo -->
+            <button type="button" onclick="heroSetPanel(null)" id="hero-nav-null" title="Escuta Ativa" class="grid size-9 place-content-center rounded-full transition-colors bg-black/5 text-black/80">
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+            </button>
+            
+            <div class="my-0.5 h-px w-5 bg-black/10"></div>
+
+            <!-- Pedidos / Requests -->
+            <button type="button" onclick="heroSetPanel('requests')" id="hero-nav-requests" title="Pedidos" class="grid size-9 place-content-center rounded-full transition-colors text-black/40 hover:bg-black/5 hover:text-black/70">
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </button>
+
+            <!-- Transcrição / Transcript -->
+            <button type="button" onclick="heroSetPanel('transcript')" id="hero-nav-transcript" title="Transcrição" class="grid size-9 place-content-center rounded-full transition-colors text-black/40 hover:bg-black/5 hover:text-black/70">
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </button>
+
+            <!-- Contexto / Context -->
+            <button type="button" onclick="heroSetPanel('context')" id="hero-nav-context" title="Contexto" class="grid size-9 place-content-center rounded-full transition-colors text-black/40 hover:bg-black/5 hover:text-black/70">
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+
+            <!-- Histórico / Past sessions -->
+            <button type="button" onclick="heroSetPanel('history')" id="hero-nav-history" title="Sessões Anteriores" class="grid size-9 place-content-center rounded-full transition-colors text-black/40 hover:bg-black/5 hover:text-black/70">
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </button>
+
+            <!-- Tradução / Translate -->
+            <button type="button" onclick="heroSetPanel('translate')" id="hero-nav-translate" title="Tradução em Tempo Real" class="grid size-9 place-content-center rounded-full transition-colors text-black/40 hover:bg-black/5 hover:text-black/70">
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </button>
+          </aside>
+
+          <!-- Área Central de Conteúdo e Painéis Auxiliares -->
+          <div class="flex min-w-0 flex-1 flex-col overflow-hidden">
+            
+            <div class="flex min-h-0 flex-1 overflow-hidden px-4 pb-2 pt-3">
+              
+              <!-- Painel Principal -->
+              <div id="hero-main-content" class="flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg">
+
+                <!-- Tela Idle: Modo Espera -->
+                <div id="hero-view-mode" class="flex flex-1 flex-col items-center justify-center px-6 text-center">
+                  <div class="size-12 rounded-full bg-black/5 flex items-center justify-center mb-3">
+                    <svg class="size-6 text-black/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+                  </div>
+                  <h2 class="text-sm font-semibold text-black/90">Pronto quando você estiver</h2>
+                  <p class="mt-1 text-xs text-gray-500 max-w-sm">Selecione o modo da reunião e clique em Iniciar. As respostas aparecerão em tempo real sem ninguém perceber.</p>
+                </div>
+
+                <!-- Tela Ativa: Pergunta + Resposta em Tempo Real -->
+                <div id="hero-view-active" class="hidden flex-1 flex-col min-h-0 overflow-hidden">
+                  <!-- Cabeçalho da Pergunta do Entrevistador -->
+                  <div class="mb-2 shrink-0 border-b border-black/5 pb-2 text-xs text-emerald-600 flex items-center gap-1.5">
+                    <span class="font-semibold uppercase tracking-wider text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">Pergunta</span>
+                    <span id="hero-active-question" class="font-medium text-black/85 text-xs truncate"></span>
+                  </div>
+
+                  <!-- Resposta Streaming com Syntax Highlighter -->
+                  <div class="min-h-0 flex-1 overflow-y-auto pr-1 text-xs sm:text-[13px] leading-relaxed text-black/90 space-y-3">
+                    <p id="hero-answer-intro" class="whitespace-pre-line"></p>
+                    
+                    <div id="hero-code-wrapper" class="hidden">
+                      <div class="flex items-center justify-between bg-[#1e1e2e] px-3 py-1.5 rounded-t-lg border-b border-white/10 text-[11px] font-mono text-gray-400">
+                        <span>solucao.js</span>
+                        <span class="text-emerald-400 text-[10px]">O(n) complexidade</span>
+                      </div>
+                      <pre class="overflow-x-auto rounded-b-lg border border-black/15 bg-[#181825] p-3 font-mono text-[12px] leading-5 text-[#cdd6f4]"><code id="hero-code-content"></code></pre>
+                    </div>
+
+                    <span id="hero-streaming-cursor" class="inline-block animate-pulse text-blue-500 font-bold ml-0.5">▋</span>
+                  </div>
+
+                  <!-- Sugestões de Follow-up -->
+                  <div id="hero-followup-box" class="mt-2 shrink-0 border-t border-black/5 pt-2 hidden">
+                    <div class="mb-2 flex flex-wrap gap-1.5" id="hero-followup-pills"></div>
+                    <div class="flex items-center gap-2 rounded-full bg-black/5 px-3 py-1.5">
+                      <input type="text" placeholder="Faça uma pergunta sobre esta resposta..." class="min-w-0 flex-1 bg-transparent text-xs text-black/80 placeholder:text-black/40 outline-none" readonly />
+                      <button class="size-6 shrink-0 place-content-center rounded-full bg-black text-white flex items-center justify-center text-xs">
+                        ↑
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Divisor Vertical -->
+              <div id="hero-panel-divider" class="hidden w-px shrink-0 bg-black/5 sm:block mx-3"></div>
+
+              <!-- Painel Lateral Alternável -->
+              <div id="hero-side-panel" class="hidden min-h-0 flex-1 flex-col overflow-y-auto rounded-lg text-start">
+                
+                <!-- Pedidos -->
+                <div id="hero-detail-requests" class="hidden flex-col h-full">
+                  <div class="flex items-center justify-between mb-2">
+                    <p class="text-xs font-semibold text-black/90">Pedidos <span id="hero-requests-count" class="font-normal text-black/40">(0)</span></p>
+                    <span class="text-[10px] text-gray-400">Ao vivo</span>
+                  </div>
+                  <p class="mb-3 text-[11px] text-black/40">Selecione uma solicitação para manter a resposta fixada.</p>
+                  <div id="hero-requests-list" class="space-y-2 overflow-y-auto"></div>
+                </div>
+
+                <!-- Transcrição -->
+                <div id="hero-detail-transcript" class="hidden flex-col h-full">
+                  <p class="mb-2 text-xs font-semibold text-black/90">Transcrição em Tempo Real</p>
+                  <div id="hero-transcript-list" class="space-y-2.5 overflow-y-auto text-xs text-black/75"></div>
+                </div>
+
+                <!-- Contexto -->
+                <div id="hero-detail-context" class="hidden flex-col h-full text-xs">
+                  <p class="font-semibold text-black/90 mb-1">Contexto & Preferências</p>
+                  <p class="text-[11px] text-gray-500 mb-3">Defina as instruções que o SMUG usará para adaptar as respostas à sua vaga ou reunião.</p>
+                  <div class="space-y-3">
+                    <div>
+                      <label class="text-[10px] font-medium text-gray-400 uppercase">Estilo de Resposta</label>
+                      <div class="flex gap-1.5 mt-1">
+                        <span class="bg-black text-white px-2 py-0.5 rounded text-[11px]">Direto</span>
+                        <span class="bg-black/5 text-black/60 px-2 py-0.5 rounded text-[11px]">Estruturado</span>
+                        <span class="bg-black/5 text-black/60 px-2 py-0.5 rounded text-[11px]">Explicativo</span>
+                      </div>
+                    </div>
+                    <div>
+                      <label class="text-[10px] font-medium text-gray-400 uppercase">Nível Técnico</label>
+                      <div class="flex gap-1.5 mt-1">
+                        <span class="bg-black/5 text-black/60 px-2 py-0.5 rounded text-[11px]">Pleno</span>
+                        <span class="bg-black text-white px-2 py-0.5 rounded text-[11px]">Sênior / Lead</span>
+                        <span class="bg-black/5 text-black/60 px-2 py-0.5 rounded text-[11px]">Especialista</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Histórico -->
+                <div id="hero-detail-history" class="hidden flex-col h-full text-xs">
+                  <p class="font-semibold text-black/90 mb-2">Sessões Recentes</p>
+                  <div class="space-y-2">
+                    <div class="p-2 rounded-lg bg-black/5 hover:bg-black/10 transition cursor-pointer">
+                      <p class="font-medium text-black">Entrevista Técnica - Tech Lead</p>
+                      <p class="text-[11px] text-gray-500">Ontem às 15:30 · 14 perguntas</p>
+                    </div>
+                    <div class="p-2 rounded-lg bg-black/5 hover:bg-black/10 transition cursor-pointer">
+                      <p class="font-medium text-black">Alinhamento Executivo Q3</p>
+                      <p class="text-[11px] text-gray-500">24 de Out · Resumo de atas</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Tradução -->
+                <div id="hero-detail-translate" class="hidden flex-col h-full text-xs">
+                  <div class="flex items-center justify-between mb-2">
+                    <p class="font-semibold text-black/90">Tradução Simultânea</p>
+                    <select id="hero-lang-select" onchange="heroChangeLang(this.value)" class="text-xs bg-emerald-50 border border-emerald-300 text-emerald-800 rounded-full px-2 py-0.5 outline-none cursor-pointer">
+                      <option value="pt">🇧🇷 Português</option>
+                      <option value="en">🇺🇸 Inglês</option>
+                      <option value="es">🇪🇸 Espanhol</option>
+                      <option value="fr">🇫🇷 Francês</option>
+                    </select>
+                  </div>
+                  <div class="bg-black/5 p-3 rounded-xl space-y-2">
+                    <p class="text-[11px] font-medium text-emerald-700">Tradução instantânea do áudio:</p>
+                    <p id="hero-translated-text" class="text-xs leading-relaxed text-black/85">
+                      "Aqui eu usaria um hash map — isso reduz tudo a uma única passada O(n) em vez de comparar cada par."
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- Barra Inferior: Botão Iniciar / Parar com Timer -->
+            <div class="flex shrink-0 items-center justify-between px-4 pb-3 pt-1 border-t border-black/5 bg-white">
+              <div id="hero-bottom-idle" class="flex items-center gap-2">
+                <button id="hero-btn-start" type="button" onclick="heroStartSession()" class="flex items-center gap-1.5 rounded-full border border-emerald-500/80 bg-emerald-500/10 hover:bg-emerald-500/20 px-3.5 py-1 text-xs font-semibold text-emerald-700 transition">
+                  <svg class="size-3.5 fill-emerald-600 text-emerald-600" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  <span>Iniciar</span>
+                </button>
+                <div class="flex items-center gap-1.5 rounded-full border border-black/10 bg-black/5 px-2.5 py-1 text-xs text-gray-500">
+                  <span class="text-gray-400">Modo:</span>
+                  <span class="font-medium text-black/75">Entrevista / Reunião</span>
+                </div>
+              </div>
+
+              <div id="hero-bottom-active" class="hidden items-center gap-2">
+                <div class="flex items-center gap-1.5 rounded-full border border-black/10 bg-black/5 px-2.5 py-1 text-xs">
+                  <span class="size-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span id="hero-timer" class="font-mono text-gray-600 tabular-nums">00:12</span>
+                </div>
+                <button type="button" onclick="heroStopSession()" class="flex items-center gap-1 rounded-full border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 px-2.5 py-1 text-xs font-medium transition">
+                  <svg class="size-3 fill-red-500" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+                  <span>Parar</span>
+                </button>
+              </div>
+
+              <div class="text-[11px] text-gray-400 hidden sm:flex items-center gap-1">
+                <span>Atalho rápido:</span>
+                <kbd class="px-1.5 py-0.5 rounded bg-black/5 border border-black/10 font-mono text-[10px]">⌘ + Espaço</kbd>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SEÇÃO 2: NUNCA FIQUE EM BRANCO (ASK ON THE SIDE + SCREEN ANALYSIS) -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-20 sm:py-32">
+    
+    <div class="text-center max-w-5xl mx-auto mb-20 sm:mb-28">
+      <h2 class="text-5xl sm:text-6xl lg:text-8xl xl:text-9xl font-semibold tracking-tight leading-[0.95] text-balance">
+        Nunca
+        <span class="font-handlee inline-block -rotate-2 text-violet-600">fique</span>
+        em branco.
+      </h2>
+    </div>
+
+    <div class="flex flex-col gap-24 sm:gap-36 lg:gap-44">
+      
+      <!-- Bloco 1: Pergunte em paralelo -->
+      <div class="flex flex-col items-center gap-8 lg:flex-row lg:gap-16">
+        <div class="w-full text-center lg:w-1/2 lg:text-left">
+          <h3 class="text-3xl sm:text-4xl font-semibold tracking-tight mb-4">
+            Pergunte
+            <span class="relative isolate inline-block">
+              em paralelo
+              <svg aria-hidden="true" class="pointer-events-none absolute -inset-x-[3%] -bottom-[14%] -z-10 h-[24%] w-[106%]" preserveAspectRatio="none" viewBox="0 0 200 20">
+                <path d="M2 12 Q 50 6, 100 11 T 198 9" fill="none" stroke="#8d51ff" stroke-linecap="round" stroke-width="3" />
+              </svg>
+            </span>
+          </h3>
+          <p class="text-[#707070] text-base sm:text-lg max-w-md mx-auto lg:mx-0 leading-relaxed">
+            Precisa de um dado rápido, uma fórmula, uma definição ou algo totalmente inesperado? Pergunte ao SMUG sem quebrar o ritmo da conversa.
+          </p>
+        </div>
+
+        <div class="h-80 w-full sm:h-96 lg:w-1/2">
+          <div class="flex h-full w-full flex-col overflow-hidden rounded-2xl bg-white text-black shadow-xl border border-black/5 p-4 sm:p-6 justify-between">
+            <div class="flex items-center justify-between text-xs text-gray-400 border-b border-black/5 pb-3">
+              <div class="flex items-center gap-1.5">
+                <span class="size-2 rounded-full bg-emerald-500"></span>
+                <span class="font-medium text-black/75">SMUG Pergunte ao Lado</span>
+              </div>
+              <span>Atalho: ⌥ + P</span>
+            </div>
+
+            <div class="my-auto space-y-3">
+              <div class="bg-black/5 p-3 rounded-xl max-w-[85%] ml-auto text-xs sm:text-sm text-black/85">
+                "Qual é a diferença chave entre consistência eventual e forte no DynamoDB?"
+              </div>
+              <div class="bg-emerald-50/80 border border-emerald-100 p-3.5 rounded-xl max-w-[90%] text-xs sm:text-sm text-emerald-950 leading-relaxed">
+                <span class="font-bold text-emerald-800">Resposta instantânea:</span> A leitura consistente eventual pode retornar dados desatualizados (metade do custo), enquanto a fortemente consistente garante os dados mais recentes de todos os nós com maior custo de RCU.
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 bg-black/5 p-2 rounded-full text-xs">
+              <span class="text-black/40 px-2">Pergunte qualquer coisa...</span>
+              <button class="ml-auto bg-black text-white px-3 py-1 rounded-full font-medium">Enviar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloco 2: Ele Vê Sua Tela (Vision) -->
+      <div class="flex flex-col-reverse items-center gap-8 lg:flex-row lg:gap-16">
+        
+        <div class="h-80 w-full sm:h-96 lg:w-1/2">
+          <div class="relative flex h-full w-full flex-col overflow-hidden rounded-2xl bg-[#1e1e2e] text-[#cdd6f4] shadow-xl border border-black/10 p-5 font-mono text-xs">
+            
+            <!-- Laser de varredura visual sweep -->
+            <div class="animate-vision-scan-sweep pointer-events-none absolute inset-x-0 top-0 h-20" 
+                 style="background: linear-gradient(to bottom, transparent, rgba(141,81,255,0.4), transparent);">
+            </div>
+
+            <div class="flex items-center justify-between text-gray-400 border-b border-white/10 pb-2 mb-3">
+              <div class="flex items-center gap-2">
+                <span class="size-2.5 rounded-full bg-red-400"></span>
+                <span class="size-2.5 rounded-full bg-yellow-400"></span>
+                <span class="size-2.5 rounded-full bg-emerald-400"></span>
+                <span class="text-[11px] text-gray-300 ml-2">interview.js — Visão Ativa</span>
+              </div>
+              <span class="text-[10px] bg-violet-500/20 text-violet-300 px-2 py-0.5 rounded-full border border-violet-400/30">Lendo Tela</span>
+            </div>
+
+            <div class="space-y-1.5 leading-relaxed">
+              <p class="text-gray-500">// Desafio de Código Compartilhado no CoderPad</p>
+              <p class="text-white"><span class="text-[#c792ea]">function</span> <span class="text-[#82aaff]">isPalindrome</span>(str) {</p>
+              <p class="pl-4 text-emerald-400">// O SMUG leu sua tela e já gerou a resposta ideal</p>
+              <p class="pl-4 text-white"><span class="text-[#c792ea]">const</span> clean = str.toLowerCase().replace(/[^a-z0-9]/g, '');</p>
+              <p class="pl-4 text-white"><span class="text-[#c792ea]">return</span> clean === clean.split('').reverse().join('');</p>
+              <p class="text-white">}</p>
+            </div>
+
+            <div class="mt-auto bg-white/10 backdrop-blur p-2.5 rounded-xl border border-white/10 text-[11px] text-white flex items-center justify-between">
+              <span class="text-emerald-300 font-sans">✓ Código analisado com sucesso</span>
+              <span class="text-gray-300 text-[10px]">Latência: 120ms</span>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="w-full text-center lg:w-1/2 lg:text-left">
+          <h3 class="text-3xl sm:text-4xl font-semibold tracking-tight mb-4">
+            Ele
+            <span class="relative isolate inline-block">
+              Vê Sua Tela
+              <svg aria-hidden="true" class="pointer-events-none absolute -inset-x-[3%] -bottom-[14%] -z-10 h-[24%] w-[106%]" preserveAspectRatio="none" viewBox="0 0 200 20">
+                <path d="M2 12 Q 50 6, 100 11 T 198 9" fill="none" stroke="#8d51ff" stroke-linecap="round" stroke-width="3" />
+              </svg>
+            </span>
+          </h3>
+          <p class="text-[#707070] text-base sm:text-lg max-w-md mx-auto lg:mx-0 leading-relaxed">
+            Aponte para qualquer exercício de código, slide ou diagrama compartilhado na chamada. O SMUG analisa a imagem instantaneamente e entrega a solução mastigada.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SEÇÃO 3: NOTAS AUTOMÁTICAS E PESSOAIS -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-20 sm:py-32 border-t border-black/5">
+    
+    <div class="text-center mb-16 sm:mb-24">
+      <h2 class="mx-auto text-4xl sm:text-6xl lg:text-8xl xl:text-9xl font-semibold tracking-tight leading-[0.98] text-balance mb-6">
+        <span>Notas</span>
+        <span class="font-handlee text-violet-600">automáticas</span>
+        <br />
+        e pessoais
+      </h2>
+      <p class="text-[#707070] text-base sm:text-xl max-w-2xl mx-auto">
+        Tudo o que foi falado é estruturado em resumos acionáveis para você revisar quando quiser.
+      </p>
+    </div>
+
+    <!-- 4 Benefícios -->
+    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      <li class="p-6 rounded-2xl bg-white border border-black/5 shadow-sm space-y-2">
+        <div class="size-10 rounded-xl bg-violet-100 text-violet-700 flex items-center justify-center font-bold">
+          ⚡
+        </div>
+        <h4 class="font-semibold text-base text-black">Criação Automática</h4>
+        <p class="text-sm text-[#707070]">Resumo gerado imediatamente após encerrar sua sessão de escuta.</p>
+      </li>
+
+      <li class="p-6 rounded-2xl bg-white border border-black/5 shadow-sm space-y-2">
+        <div class="size-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold">
+          ✏️
+        </div>
+        <h4 class="font-semibold text-base text-black">Edição com IA</h4>
+        <p class="text-sm text-[#707070]">Edite manualmente ou peça para a IA enriquecer com tópicos e checklists.</p>
+      </li>
+
+      <li class="p-6 rounded-2xl bg-white border border-black/5 shadow-sm space-y-2">
+        <div class="size-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+          📤
+        </div>
+        <h4 class="font-semibold text-base text-black">Exportação em 1 Clique</h4>
+        <p class="text-sm text-[#707070]">Exporte em PDF profissional, Markdown limpo ou compartilhe por link.</p>
+      </li>
+
+      <li class="p-6 rounded-2xl bg-white border border-black/5 shadow-sm space-y-2">
+        <div class="size-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold">
+          🔒
+        </div>
+        <h4 class="font-semibold text-base text-black">Armazenamento Local</h4>
+        <p class="text-sm text-[#707070]">Suas notas ficam salvas na sua máquina com privacidade criptografada.</p>
+      </li>
+    </ul>
+
+    <!-- Mockup Visual da Biblioteca de Notas -->
+    <div class="w-full max-w-5xl mx-auto rounded-2xl bg-white border border-black/10 shadow-xl overflow-hidden p-4 sm:p-6 flex flex-col md:flex-row gap-6">
+      
+      <!-- Mini Navegação de Pastas -->
+      <div class="w-full md:w-56 shrink-0 border-b md:border-b-0 md:border-r border-black/5 pb-4 md:pb-0 md:pr-4 text-xs space-y-3">
+        <p class="font-bold text-black uppercase tracking-wider text-[10px]">Pastas de Notas</p>
+        <div class="space-y-1">
+          <div class="flex items-center justify-between p-2 rounded-lg bg-black/5 font-semibold text-black">
+            <span>📁 Todas as Notas</span>
+            <span class="text-gray-400">12</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-lg hover:bg-black/5 text-gray-600 cursor-pointer">
+            <span>⭐ Favoritos</span>
+            <span class="text-gray-400">4</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-lg hover:bg-black/5 text-gray-600 cursor-pointer">
+            <span>💼 Entrevistas Técnicas</span>
+            <span class="text-gray-400">6</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-lg hover:bg-black/5 text-gray-600 cursor-pointer">
+            <span>👥 Reuniões com Clientes</span>
+            <span class="text-gray-400">2</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lista de Notas Detalhadas -->
+      <div class="flex-1 space-y-3">
+        <div class="flex items-center justify-between text-xs text-gray-400 border-b border-black/5 pb-2">
+          <span>Últimas notas sintetizadas</span>
+          <span>Filtro: Recentes</span>
+        </div>
+
+        <div class="p-3.5 rounded-xl border border-black/5 bg-[#fafafa] hover:bg-white hover:border-violet-200 transition space-y-1 cursor-pointer">
+          <div class="flex items-center justify-between">
+            <h5 class="font-semibold text-sm text-black">Entrevista Tech Lead — Arquitetura de Pagamentos</h5>
+            <span class="text-[11px] text-gray-400">Hoje, 14:20</span>
+          </div>
+          <p class="text-xs text-gray-600 line-clamp-2">
+            Principais tópicos: Idempotência de transações com Redis, filas com RabbitMQ, circuit breaker e métricas de latência p99.
+          </p>
+          <div class="flex gap-2 pt-1">
+            <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-medium">Aprovado</span>
+            <span class="text-[10px] bg-violet-100 text-violet-800 px-2 py-0.5 rounded-full font-medium">9 Perguntas</span>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl border border-black/5 bg-[#fafafa] hover:bg-white hover:border-violet-200 transition space-y-1 cursor-pointer">
+          <div class="flex items-center justify-between">
+            <h5 class="font-semibold text-sm text-black">Alinhamento de Sprint — Migração de Banco de Dados</h5>
+            <span class="text-[11px] text-gray-400">Ontem</span>
+          </div>
+          <p class="text-xs text-gray-600 line-clamp-2">
+            Decisões: Criação de réplica de leitura no Aurora Postgres e desligamento dos scripts legados na sexta-feira.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SEÇÃO 4: SUA PRIVACIDADE E SEGURANÇA -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-20 sm:py-32 border-t border-black/5">
+    
+    <div class="text-center mb-16 sm:mb-24">
+      <h2 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight leading-[0.98] text-balance mb-4">
+        Sua
+        <span class="font-handlee inline-block -rotate-2 text-violet-600">privacidade</span>
+        e segurança
+      </h2>
+      <p class="text-lg sm:text-xl text-[#707070] leading-relaxed text-balance max-w-2xl mx-auto">
+        Transparência absoluta e controle em cada etapa da sua chamada.
+      </p>
+    </div>
+
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      
+      <!-- Card 1 -->
+      <article class="rounded-2xl p-8 bg-[#f5f5f5] hover:bg-white border border-transparent hover:border-black/5 transition shadow-sm space-y-3">
+        <div class="size-12 rounded-xl bg-violet-100 text-violet-700 flex items-center justify-center font-bold text-xl">
+          🛡️
+        </div>
+        <h3 class="text-xl font-semibold text-black">Controle Total</h3>
+        <p class="text-[#707070] leading-relaxed text-sm">
+          Decida exatamente como o assistente opera: notas silenciosas, sugestões sutis ou respostas completas. Configure individualmente para Escuta, Visão ou Perguntas.
+        </p>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="rounded-2xl p-8 bg-[#f5f5f5] hover:bg-white border border-transparent hover:border-black/5 transition shadow-sm space-y-3">
+        <div class="size-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl">
+          💾
+        </div>
+        <h3 class="text-xl font-semibold text-black">Seus Dados Ficam Com Você</h3>
+        <p class="text-[#707070] leading-relaxed text-sm">
+          Todo o áudio, transcrições e anotações são armazenados localmente na sua máquina. Nenhum áudio fica salvo em nuvem e seus dados nunca são usados para treinar modelos.
+        </p>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="rounded-2xl p-8 bg-[#f5f5f5] hover:bg-white border border-transparent hover:border-black/5 transition shadow-sm space-y-3">
+        <div class="size-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xl">
+          ⚡
+        </div>
+        <h3 class="text-xl font-semibold text-black">Transparência Absoluta</h3>
+        <p class="text-[#707070] leading-relaxed text-sm">
+          Um log de atividade em tempo real exibe exatamente o que está sendo processado. Botão de emergência (kill-switch) para cortar o acesso de rede imediatamente.
+        </p>
+      </article>
+
+    </div>
+
+  </section>
+
+  <!-- SEÇÃO 5: PERGUNTAS FREQUENTES (FAQ) -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-8 py-20 sm:py-32 border-t border-black/5">
+    
+    <header class="mb-14 sm:mb-20 text-center">
+      <h2 class="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[0.98]">
+        Perguntas que você pode querer as
+        <span class="font-handlee inline-block -rotate-2 text-violet-600">respostas</span>
+      </h2>
+      <p class="mt-4 text-base sm:text-lg text-[#707070]">
+        Tudo sobre funcionamento, suporte e configuração do SMUG.
+      </p>
+    </header>
+
+    <!-- Accordion FAQ Interativo -->
+    <div class="space-y-3" id="faq-accordion">
+      
+      <!-- FAQ 1 -->
+      <div class="rounded-2xl border border-black/10 bg-white overflow-hidden transition">
+        <button onclick="toggleFaq(1)" class="w-full flex items-center justify-between p-5 text-left font-semibold text-base sm:text-lg text-black hover:bg-black/[0.02] transition">
+          <span>O SMUG é realmente invisível em compartilhamentos de tela e gravações?</span>
+          <span id="faq-icon-1" class="text-xl text-black/50 transition-transform duration-200">+</span>
+        </button>
+        <div id="faq-content-1" class="hidden px-5 pb-5 text-sm sm:text-base text-[#707070] leading-relaxed border-t border-black/5 pt-3">
+          Sim. O SMUG renderiza como uma sobreposição protegida no nível da API gráfica do macOS. As pessoas na sua chamada e softwares de gravação de tela (Zoom, Meet, OBS, Loom, Teams) não conseguem capturar nem enxergar a janela do SMUG.
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="rounded-2xl border border-black/10 bg-white overflow-hidden transition">
+        <button onclick="toggleFaq(2)" class="w-full flex items-center justify-between p-5 text-left font-semibold text-base sm:text-lg text-black hover:bg-black/[0.02] transition">
+          <span>Posso enxergar através do SMUG enquanto participo da chamada?</span>
+          <span id="faq-icon-2" class="text-xl text-black/50 transition-transform duration-200">+</span>
+        </button>
+        <div id="faq-content-2" class="hidden px-5 pb-5 text-sm sm:text-base text-[#707070] leading-relaxed border-t border-black/5 pt-3">
+          Sim! Os painéis do SMUG contam com transparência e desfoque ajustáveis (blur), permitindo que você continue vendo seu código, o rosto dos participantes ou apresentações de fundo sem qualquer obstrução.
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="rounded-2xl border border-black/10 bg-white overflow-hidden transition">
+        <button onclick="toggleFaq(3)" class="w-full flex items-center justify-between p-5 text-left font-semibold text-base sm:text-lg text-black hover:bg-black/[0.02] transition">
+          <span>Quais plataformas e sistemas são suportados?</span>
+          <span id="faq-icon-3" class="text-xl text-black/50 transition-transform duration-200">+</span>
+        </button>
+        <div id="faq-content-3" class="hidden px-5 pb-5 text-sm sm:text-base text-[#707070] leading-relaxed border-t border-black/5 pt-3">
+          No momento, o SMUG está disponível exclusivamente para <strong>macOS</strong> (versão 14.2 ou superior), com suporte nativo de alta performance para todos os Macs <strong>Apple Silicon (M1, M2, M3, M4 e versões Pro/Max/Ultra)</strong>, além de Macs Intel compatíveis com macOS Sonoma ou superior. O suporte para Windows está em planejamento futuro.
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="rounded-2xl border border-black/10 bg-white overflow-hidden transition">
+        <button onclick="toggleFaq(4)" class="w-full flex items-center justify-between p-5 text-left font-semibold text-base sm:text-lg text-black hover:bg-black/[0.02] transition">
+          <span>Com quais aplicativos de videoconferência ele funciona?</span>
+          <span id="faq-icon-4" class="text-xl text-black/50 transition-transform duration-200">+</span>
+        </button>
+        <div id="faq-content-4" class="hidden px-5 pb-5 text-sm sm:text-base text-[#707070] leading-relaxed border-t border-black/5 pt-3">
+          Funciona com todos: Google Meet, Zoom, Microsoft Teams, Slack Huddles, Discord, Webex ou chamadas no navegador. Como o SMUG flutua sobre o sistema, ele não depende de plugins de terceiros.
+        </div>
+      </div>
+
+      <!-- FAQ 5 -->
+      <div class="rounded-2xl border border-black/10 bg-white overflow-hidden transition">
+        <button onclick="toggleFaq(5)" class="w-full flex items-center justify-between p-5 text-left font-semibold text-base sm:text-lg text-black hover:bg-black/[0.02] transition">
+          <span>O SMUG funciona com múltiplos monitores?</span>
+          <span id="faq-icon-5" class="text-xl text-black/50 transition-transform duration-200">+</span>
+        </button>
+        <div id="faq-content-5" class="hidden px-5 pb-5 text-sm sm:text-base text-[#707070] leading-relaxed border-t border-black/5 pt-3">
+          Sim. Você pode arrastar os painéis do SMUG livremente para qualquer monitor, mesmo que outro app esteja em tela cheia (full-screen), mantendo-o sempre fixado no topo (Always-on-top).
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER MODERNO -->
+  <footer class="border-t border-black/5 bg-white py-12 px-4 sm:px-8 lg:px-12">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+      
+      <!-- LOGO SMUG NO FOOTER -->
+      <div class="flex items-center gap-0.5 select-none">
+        <span class="text-2xl font-bold uppercase tracking-tight -mr-[6px] text-black">sm</span>
+        <svg width="30" height="30" viewBox="0 0 34 34" class="inline-block overflow-visible" aria-label="SMUG logo">
+          <path d="M 10 8 L 10 18.5 C 10 26.2 24 26.2 24 18.5 L 24 8" fill="none" stroke="black" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+          <g class="smug-u-dot">
+            <circle cx="17" cy="18" r="3.2" fill="black" />
+          </g>
+        </svg>
+        <span class="text-2xl font-bold uppercase tracking-tight -ml-[4px] text-black">g</span>
+      </div>
+
+      <p class="text-xs text-gray-500 text-center sm:text-left">
+        SMUG AI © Todos os direitos reservados. O copiloto invisível em tempo real para o seu sucesso profissional.
+      </p>
+
+      <a href="https://wa.me/5571999088651?text=Ol%C3%A1%21%20Gostaria%20de%20conversar%20sobre%20o%20SMUG." 
+         target="_blank" 
+         rel="noopener noreferrer"
+         class="text-xs font-semibold text-black hover:text-emerald-600 transition flex items-center gap-1.5">
+        <span>Falar no WhatsApp: (71) 99908-8651</span> ↗
+      </a>
+
+    </div>
+  </footer>
+
+  <!-- BOTÃO FLUTUANTE DO WHATSAPP (Exigência do Usuário: wa.me 5571999088651) -->
+  <div class="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+    
+    <!-- Mini Balão Tooltip com status Online -->
+    <a href="https://wa.me/5571999088651?text=Ol%C3%A1%21%20Vi%20o%20site%20do%20SMUG%20e%20gostaria%20de%20falar%20com%20voc%C3%AA." 
+       target="_blank" 
+       rel="noopener noreferrer"
+       class="hidden sm:flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full shadow-lg border border-black/5 text-xs font-semibold hover:bg-gray-50 transition hover:scale-105 active:scale-95 group">
+      <span class="size-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span>Fale comigo no WhatsApp</span>
+    </a>
+
+    <!-- Botão Circular Verde do WhatsApp com Pulso -->
+    <a href="https://wa.me/5571999088651?text=Ol%C3%A1%21%20Vi%20o%20site%20do%20SMUG%20e%20gostaria%20de%20falar%20com%20voc%C3%AA." 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       title="Falar no WhatsApp: 5571999088651"
+       aria-label="Abrir conversa no WhatsApp com 5571999088651"
+       class="wa-floating-btn relative size-14 sm:size-16 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all">
+      <svg class="size-7 sm:size-8 fill-white" viewBox="0 0 24 24">
+        <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zM17.5 16.5c-.24.67-1.39 1.24-1.92 1.29-.49.05-1.12.08-3.62-.96-3.08-1.28-5.07-4.41-5.22-4.61-.15-.2-1.25-1.66-1.25-3.17s.78-2.25 1.06-2.56c.28-.31.61-.39.81-.39.2 0 .41.01.59.02.19.01.44-.07.69.52.26.62.88 2.15.96 2.31.08.16.13.35.03.55-.1.2-.15.33-.3.51-.15.18-.32.4-.46.54-.15.15-.31.32-.13.62.18.3 1.08 1.78 2.32 2.89 1.6 1.42 2.95 1.86 3.37 2.07.42.21.67.18.92-.1.25-.29 1.07-1.25 1.36-1.68.29-.43.58-.36.98-.21.4.15 2.53 1.19 2.96 1.41.43.21.72.32.83.49.1.18.1.99-.14 1.66z"/>
+      </svg>
+    </a>
+
+  </div>
+
+  <!-- SCRIPT DA ANIMAÇÃO NO HERO -->
+  <script>
+    // Cenários de Entrevista e Reunião em Português
+    const HERO_SCENARIOS = [
+      {
+        question: "Vamos fazer um pouco de código — você pode escrever uma função que encontre dois números em um array que somem um valor alvo?",
+        answerIntro: "Aqui eu usaria um hash map — isso transforma o problema em uma única passada O(n), em vez de comparar cada par com complexidade quadrática O(n²).\n\nConforme percorremos o array, calculamos o complemento necessário e verificamos se já o encontramos:",
+        code: `function twoSum(nums, target) {
+  const seen = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
+    if (seen.has(complement)) {
+      return [seen.get(complement), i];
+    }
+    seen.set(nums[i], i);
+  }
+  return null;
+}`,
+        followSuggestions: ["Explicar complexidade de tempo e espaço", "E se houver números negativos?", "Mostrar caso de teste prático"],
+        translations: {
+          pt: "Aqui eu usaria um hash map — isso reduz tudo a uma única passada O(n) em vez de comparar cada par.",
+          en: "I'd reach for a hash map here — it turns this into a single O(n) pass instead of comparing every pair.",
+          es: "Optaría por una tabla hash aquí — así se reduce todo a un único recorrido en O(n) en lugar de comparar cada par.",
+          fr: "Je partirais sur une table de hachage — ça ramène le problème à un seul passage en O(n) plutôt que de comparer chaque paire."
+        }
+      },
+      {
+        question: "Como você desenharia um sistema simples de Rate Limiter para uma API de alta escala?",
+        answerIntro: "A melhor abordagem é o algoritmo de Token Bucket utilizando Redis.\n\nCada cliente recebe um bucket virtual com capacidade máxima que se reabastece a uma taxa fixa por segundo. As requisições consomem 1 token; se o bucket esvaziar, retornamos HTTP 429 Too Many Requests instantaneamente.",
+        code: `async function isRateLimited(userId, limit = 60, interval = 60) {
+  const key = \`rate_limit:\${userId}\`;
+  const current = await redis.incr(key);
+  if (current === 1) {
+    await redis.expire(key, interval);
+  }
+  return current > limit;
+}`,
+        followSuggestions: ["Como lidar com concorrência distribuída no Redis?", "Token Bucket vs Leaky Bucket", "Qual o impacto de latência no API Gateway?"],
+        translations: {
+          pt: "A melhor abordagem é o algoritmo de Token Bucket utilizando Redis para suportar milhares de requisições por segundo.",
+          en: "The best approach is the Token Bucket algorithm using Redis to handle thousands of requests per second.",
+          es: "El mejor enfoque es el algoritmo Token Bucket utilizando Redis para manejar miles de solicitudes por segundo.",
+          fr: "La meilleure approche est l'algorithme Token Bucket utilisant Redis pour traiter des milliers de requêtes par seconde."
+        }
+      }
+    ];
+
+    const HERO_KEYWORDS = new Set(["function", "const", "let", "var", "for", "if", "return", "new", "async", "await"]);
+
+    let heroIndex = 0;
+    let heroState = "mode";
+    let heroTimeouts = [];
+    let heroIntervals = [];
+    let heroTimerSeconds = 0;
+    let heroTimerInterval = null;
+    let heroRequests = [];
+
+    // Elementos DOM Hero
+    const heroContainer = document.getElementById("hero-sim-container");
+    const heroSpotlightOverlay = document.getElementById("hero-spotlight-overlay");
+    const heroSpotlightBg = document.getElementById("hero-spotlight-bg");
+    const heroSpotlightSvg = document.getElementById("hero-spotlight-svg");
+    const heroSpotlightCursor = document.getElementById("hero-spotlight-cursor");
+    const heroBtnStart = document.getElementById("hero-btn-start");
+    const heroStatusDot = document.getElementById("hero-status-dot");
+    const heroStatusLabel = document.getElementById("hero-status-label");
+    const heroViewMode = document.getElementById("hero-view-mode");
+    const heroViewActive = document.getElementById("hero-view-active");
+    const heroBottomIdle = document.getElementById("hero-bottom-idle");
+    const heroBottomActive = document.getElementById("hero-bottom-active");
+    const heroTimer = document.getElementById("hero-timer");
+    const heroActiveQuestion = document.getElementById("hero-active-question");
+    const heroAnswerIntro = document.getElementById("hero-answer-intro");
+    const heroCodeWrapper = document.getElementById("hero-code-wrapper");
+    const heroCodeContent = document.getElementById("hero-code-content");
+    const heroStreamingCursor = document.getElementById("hero-streaming-cursor");
+    const heroFollowupBox = document.getElementById("hero-followup-box");
+    const heroFollowupPills = document.getElementById("hero-followup-pills");
+
+    window.addEventListener("DOMContentLoaded", () => {
+      runHeroState("mode");
+    });
+
+    function clearHeroTimers() {
+      heroTimeouts.forEach(clearTimeout);
+      heroIntervals.forEach(clearInterval);
+      heroTimeouts = [];
+      heroIntervals = [];
+    }
+
+    function addHeroTimeout(fn, ms) {
+      const id = setTimeout(fn, ms);
+      heroTimeouts.push(id);
+      return id;
+    }
+
+    function addHeroInterval(fn, ms) {
+      const id = setInterval(fn, ms);
+      heroIntervals.push(id);
+      return id;
+    }
+
+    function runHeroState(state) {
+      heroState = state;
+      clearHeroTimers();
+      const scenario = HERO_SCENARIOS[heroIndex % HERO_SCENARIOS.length];
+
+      if (state === "mode") {
+        heroSpotlightOverlay.classList.add("hidden");
+        heroViewMode.classList.remove("hidden");
+        heroViewActive.classList.add("hidden");
+        heroBottomIdle.classList.remove("hidden");
+        heroBottomActive.classList.add("hidden");
+        heroStatusDot.className = "size-2 shrink-0 rounded-full bg-gray-400";
+        heroStatusLabel.textContent = "Pronto";
+        stopHeroTimer();
+
+        addHeroTimeout(() => runHeroState("starting"), 1500);
+      }
+      else if (state === "starting") {
+        positionHeroSpotlight();
+        heroSpotlightOverlay.classList.remove("hidden");
+
+        addHeroTimeout(() => {
+          heroSpotlightOverlay.classList.add("hidden");
+          heroStartSession();
+        }, 1250);
+      }
+      else if (state === "transcript") {
+        heroViewMode.classList.add("hidden");
+        heroViewActive.classList.remove("hidden");
+        heroBottomIdle.classList.add("hidden");
+        heroBottomActive.classList.remove("hidden");
+        heroStatusDot.className = "size-2 shrink-0 rounded-full bg-emerald-400 animate-pulse";
+        heroStatusLabel.textContent = "Ouvindo...";
+        startHeroTimer();
+
+        heroActiveQuestion.textContent = "";
+        heroAnswerIntro.textContent = "";
+        heroCodeWrapper.classList.add("hidden");
+        heroCodeContent.textContent = "";
+        heroFollowupBox.classList.add("hidden");
+        heroStreamingCursor.classList.remove("hidden");
+
+        let charIdx = 0;
+        const qText = scenario.question;
+        const interval = addHeroInterval(() => {
+          charIdx = Math.min(charIdx + 2, qText.length);
+          heroActiveQuestion.textContent = qText.slice(0, charIdx);
+          updateHeroTranscript(qText.slice(0, charIdx), true);
+
+          if (charIdx >= qText.length) {
+            clearInterval(interval);
+            updateHeroTranscript(qText, false);
+            addHeroRequest(qText, false);
+            addHeroTimeout(() => runHeroState("answer"), 500);
+          }
+        }, 22);
+      }
+      else if (state === "answer") {
+        heroStatusLabel.textContent = "Respondendo ao vivo...";
+        const fullIntro = scenario.answerIntro;
+        const fullCode = scenario.code || "";
+        let introChar = 0;
+        let codeChar = 0;
+
+        const interval = addHeroInterval(() => {
+          if (introChar < fullIntro.length) {
+            introChar = Math.min(introChar + 3, fullIntro.length);
+            heroAnswerIntro.textContent = fullIntro.slice(0, introChar);
+          } else if (fullCode && codeChar < fullCode.length) {
+            heroCodeWrapper.classList.remove("hidden");
+            codeChar = Math.min(codeChar + 4, fullCode.length);
+            renderHeroHighlightedCode(fullCode.slice(0, codeChar));
+          } else {
+            clearInterval(interval);
+            markHeroRequestAnswered();
+            heroStreamingCursor.classList.add("hidden");
+            addHeroTimeout(() => runHeroState("ask"), 400);
+          }
+        }, 16);
+      }
+      else if (state === "ask") {
+        heroStatusLabel.textContent = "Resposta Concluída";
+        heroFollowupBox.classList.remove("hidden");
+        heroFollowupPills.innerHTML = "";
+        scenario.followSuggestions.forEach(sug => {
+          const pill = document.createElement("span");
+          pill.className = "text-[11px] font-medium bg-black/5 hover:bg-black/10 text-black/80 px-2.5 py-1 rounded-full cursor-pointer transition";
+          pill.textContent = sug;
+          heroFollowupPills.appendChild(pill);
+        });
+
+        heroUpdateTranslation();
+        addHeroTimeout(() => runHeroState("gap"), 3400);
+      }
+      else if (state === "gap") {
+        heroIndex = (heroIndex + 1) % HERO_SCENARIOS.length;
+        runHeroState("transcript");
+      }
+    }
+
+    function positionHeroSpotlight() {
+      const containerRect = heroContainer.getBoundingClientRect();
+      const btnRect = heroBtnStart.getBoundingClientRect();
+
+      const top = btnRect.top - containerRect.top;
+      const left = btnRect.left - containerRect.left;
+      const width = btnRect.width;
+      const height = btnRect.height;
+
+      heroSpotlightBg.style.background = `radial-gradient(90px 55px at ${left + width/2}px ${top + height/2}px, transparent 40%, rgba(255,255,255,0.65) 100%)`;
+      heroSpotlightSvg.style.top = `${top - 8}px`;
+      heroSpotlightSvg.style.left = `${left - 8}px`;
+      heroSpotlightSvg.style.width = `${width + 16}px`;
+      heroSpotlightSvg.style.height = `${height + 16}px`;
+      heroSpotlightCursor.style.top = `${top + height - 4}px`;
+      heroSpotlightCursor.style.left = `${left + width - 4}px`;
+    }
+
+    function renderHeroHighlightedCode(codeSnippet) {
+      const lines = codeSnippet.split("\n");
+      heroCodeContent.innerHTML = "";
+
+      lines.forEach((line) => {
+        const lineDiv = document.createElement("div");
+        const tokens = line.split(/(\s+|[(){}\[\],.;])/);
+
+        tokens.forEach(token => {
+          if (!token) return;
+          if (HERO_KEYWORDS.has(token)) {
+            const span = document.createElement("span");
+            span.className = "text-[#c792ea] font-semibold";
+            span.textContent = token;
+            lineDiv.appendChild(span);
+          } else if (/^\d+$/.test(token)) {
+            const span = document.createElement("span");
+            span.className = "text-[#f78c6c]";
+            span.textContent = token;
+            lineDiv.appendChild(span);
+          } else if (token.startsWith("//") || line.trim().startsWith("//")) {
+            const span = document.createElement("span");
+            span.className = "text-[#6c7086] italic";
+            span.textContent = token;
+            lineDiv.appendChild(span);
+          } else if (/^[a-zA-Z_$][\w$]*$/.test(token) && line.includes(token + "(")) {
+            const span = document.createElement("span");
+            span.className = "text-[#82aaff]";
+            span.textContent = token;
+            lineDiv.appendChild(span);
+          } else {
+            lineDiv.appendChild(document.createTextNode(token));
+          }
+        });
+
+        heroCodeContent.appendChild(lineDiv);
+      });
+    }
+
+    function startHeroTimer() {
+      heroTimerSeconds = 0;
+      updateHeroTimerDisplay();
+      if (heroTimerInterval) clearInterval(heroTimerInterval);
+      heroTimerInterval = setInterval(() => {
+        heroTimerSeconds++;
+        updateHeroTimerDisplay();
+      }, 1000);
+    }
+
+    function stopHeroTimer() {
+      if (heroTimerInterval) clearInterval(heroTimerInterval);
+      heroTimerSeconds = 0;
+      updateHeroTimerDisplay();
+    }
+
+    function updateHeroTimerDisplay() {
+      const mins = String(Math.floor(heroTimerSeconds / 60)).padStart(2, '0');
+      const secs = String(heroTimerSeconds % 60).padStart(2, '0');
+      heroTimer.textContent = `${mins}:${secs}`;
+    }
+
+    function heroSetPanel(panel) {
+      ["null", "requests", "transcript", "context", "history", "translate"].forEach(p => {
+        const btn = document.getElementById(`hero-nav-${p}`);
+        if (!btn) return;
+        const isActive = (panel === null && p === "null") || (panel === p);
+        btn.className = isActive 
+          ? "grid size-9 place-content-center rounded-full transition-colors bg-black/10 text-black font-semibold"
+          : "grid size-9 place-content-center rounded-full transition-colors text-black/40 hover:bg-black/5 hover:text-black/70";
+      });
+
+      const sidePanel = document.getElementById("hero-side-panel");
+      const divider = document.getElementById("hero-panel-divider");
+
+      if (!panel) {
+        sidePanel.classList.add("hidden");
+        divider.classList.add("hidden");
+        return;
+      }
+
+      sidePanel.classList.remove("hidden");
+      divider.classList.remove("hidden");
+
+      ["requests", "transcript", "context", "history", "translate"].forEach(p => {
+        const el = document.getElementById(`hero-detail-${p}`);
+        if (el) {
+          if (p === panel) el.classList.remove("hidden");
+          else el.classList.add("hidden");
+        }
+      });
+    }
+
+    function addHeroRequest(text, answered) {
+      heroRequests.unshift({ text, answered });
+      renderHeroRequests();
+    }
+
+    function markHeroRequestAnswered() {
+      if (heroRequests.length > 0) {
+        heroRequests[0].answered = true;
+        renderHeroRequests();
+      }
+    }
+
+    function renderHeroRequests() {
+      const listEl = document.getElementById("hero-requests-list");
+      const countEl = document.getElementById("hero-requests-count");
+      countEl.textContent = `(${heroRequests.length})`;
+      listEl.innerHTML = "";
+
+      heroRequests.forEach((req) => {
+        const item = document.createElement("div");
+        item.className = `rounded-xl border-l-2 p-2.5 text-xs transition ${req.answered ? 'border-emerald-500 bg-emerald-50/50' : 'border-amber-400 bg-black/5'}`;
+        item.innerHTML = `
+          <p class="font-medium text-black/85 leading-snug">${req.text}</p>
+          <p class="mt-1 text-[10px] font-semibold ${req.answered ? 'text-emerald-700' : 'text-amber-600'}">
+            ${req.answered ? '✓ Respondido' : '⚡ Processando...'}
+          </p>
+        `;
+        listEl.appendChild(item);
+      });
+    }
+
+    function updateHeroTranscript(currentText, isStreaming) {
+      const el = document.getElementById("hero-transcript-list");
+      el.innerHTML = `
+        <div class="space-y-1">
+          <span class="font-semibold text-black/90 text-[11px]">Entrevistador:</span>
+          <p class="leading-relaxed bg-black/5 p-2 rounded-lg">
+            ${currentText} ${isStreaming ? '<span class="text-blue-500 animate-pulse">▋</span>' : ''}
+          </p>
+        </div>
+      `;
+    }
+
+    function heroChangeLang(lang) {
+      const scenario = HERO_SCENARIOS[heroIndex % HERO_SCENARIOS.length];
+      const transText = document.getElementById("hero-translated-text");
+      if (scenario.translations && scenario.translations[lang]) {
+        transText.textContent = `"${scenario.translations[lang]}"`;
+      }
+    }
+
+    function heroUpdateTranslation() {
+      const lang = document.getElementById("hero-lang-select").value;
+      heroChangeLang(lang);
+    }
+
+    function heroStartSession() {
+      runHeroState("transcript");
+    }
+
+    function heroStopSession() {
+      clearHeroTimers();
+      stopHeroTimer();
+      runHeroState("mode");
+    }
+
+    // FAQ Accordion Interativo
+    function toggleFaq(id) {
+      const content = document.getElementById(`faq-content-${id}`);
+      const icon = document.getElementById(`faq-icon-${id}`);
+      const isHidden = content.classList.contains("hidden");
+
+      // Fecha todos
+      for (let i = 1; i <= 5; i++) {
+        const c = document.getElementById(`faq-content-${i}`);
+        const ic = document.getElementById(`faq-icon-${i}`);
+        if (c && ic) {
+          c.classList.add("hidden");
+          ic.textContent = "+";
+          ic.classList.remove("rotate-45");
+        }
+      }
+
+      if (isHidden) {
+        content.classList.remove("hidden");
+        icon.textContent = "×";
+        icon.classList.add("rotate-45");
+      }
+    }
+  </script>
+</body>
+</html>
